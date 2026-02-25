@@ -1,0 +1,3 @@
+[submodule "upstream-zireael"]
+	path = upstream-zireael
+	url = https://github.com/RtlZeroMemory/Zireael.git
