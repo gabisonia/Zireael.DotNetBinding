@@ -69,10 +69,16 @@ jobs:
       - name: Patch upstream atomic function pointer init (clang compatibility)
         shell: bash
         run: |
-          perl -0pi -e 's/static _Atomic\(zr_assert_cleanup_hook_t\) g_zr_assert_cleanup_hook = NULL;/static _Atomic(zr_assert_cleanup_hook_t) g_zr_assert_cleanup_hook = 0;/' \
+          perl -0pi -e 's/static\s+_Atomic\(zr_assert_cleanup_hook_t\)\s+g_zr_assert_cleanup_hook\s*=\s*[^;]*;/static _Atomic(zr_assert_cleanup_hook_t) g_zr_assert_cleanup_hook = ATOMIC_VAR_INIT((zr_assert_cleanup_hook_t)0);/g' \
             "${ZIREAEL_UPSTREAM_DIR}/src/util/zr_assert.c"
-          perl -0pi -e 's/atomic_compare_exchange_strong_explicit\(&g_zr_assert_cleanup_hook, &expected, NULL,/atomic_compare_exchange_strong_explicit\(&g_zr_assert_cleanup_hook, &expected, \(zr_assert_cleanup_hook_t\)0,/g' \
+          perl -0pi -e 's/atomic_compare_exchange_strong_explicit\(&g_zr_assert_cleanup_hook,\s*&expected,\s*(NULL|0|\(zr_assert_cleanup_hook_t\)0),/atomic_compare_exchange_strong_explicit\(&g_zr_assert_cleanup_hook, &expected, \(zr_assert_cleanup_hook_t\)0,/g' \
             "${ZIREAEL_UPSTREAM_DIR}/src/util/zr_assert.c"
+
+          if ! grep -q 'g_zr_assert_cleanup_hook = ATOMIC_VAR_INIT((zr_assert_cleanup_hook_t)0);' "${ZIREAEL_UPSTREAM_DIR}/src/util/zr_assert.c"; then
+            echo "Failed to patch zr_assert.c for clang compatibility." >&2
+            sed -n '1,40p' "${ZIREAEL_UPSTREAM_DIR}/src/util/zr_assert.c" >&2
+            exit 1
+          fi
           if [[ "${RUNNER_OS}" == "Windows" ]]; then
             perl -0pi -e 's/#endif \/\* ZR_UTIL_ZR_MACROS_H_INCLUDED \*\//\n#if defined(_MSC_VER) \&\& !defined(__clang__)\n#undef ZR_ARRAYLEN\n#define ZR_ARRAYLEN(arr) (sizeof(arr) \/ sizeof((arr)[0]))\n#endif\n\n#endif \/\* ZR_UTIL_ZR_MACROS_H_INCLUDED \*\//s' \
               "${ZIREAEL_UPSTREAM_DIR}/src/util/zr_macros.h"
