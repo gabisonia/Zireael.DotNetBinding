@@ -50,16 +50,24 @@ detect_rid() {
   esac
 }
 
-RID="$(detect_rid || true)"
+RID="${ZIREAEL_RUNTIME_ID:-$(detect_rid || true)}"
 if [[ -z "${RID}" ]]; then
   echo "Could not map host OS/arch to a .NET runtime identifier." >&2
   echo "Build completed binary can still be copied manually into native/runtimes/<rid>/native/." >&2
 fi
 
-cmake -S "${SOURCE_DIR}" -B "${BUILD_DIR}" \
-  -DZIREAEL_BUILD_SHARED=ON \
-  -DZIREAEL_BUILD_EXAMPLES=OFF \
+cmake_args=(
+  -DZIREAEL_BUILD_SHARED=ON
+  -DZIREAEL_BUILD_EXAMPLES=OFF
   -DZIREAEL_BUILD_TESTS=OFF
+)
+
+if [[ -n "${ZIREAEL_CMAKE_EXTRA_ARGS:-}" ]]; then
+  read -r -a extra_cmake_args <<< "${ZIREAEL_CMAKE_EXTRA_ARGS}"
+  cmake_args+=("${extra_cmake_args[@]}")
+fi
+
+cmake -S "${SOURCE_DIR}" -B "${BUILD_DIR}" "${cmake_args[@]}"
 
 cmake --build "${BUILD_DIR}" --config Release
 
