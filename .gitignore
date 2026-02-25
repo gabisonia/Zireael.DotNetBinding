@@ -14,6 +14,8 @@ Thumbs.db
 # .NET build outputs
 **/bin/
 **/obj/
+.nuget/
+**/.nuget/
 TestResults/
 *.trx
 *.coverage

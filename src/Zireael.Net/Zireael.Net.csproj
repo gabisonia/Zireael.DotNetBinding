@@ -7,7 +7,7 @@
         <RootNamespace>Zireael.Net</RootNamespace>
 
         <PackageId>Zireael.Net</PackageId>
-        <Version>0.1.0-alpha.1</Version>
+        <Version>0.1.0-alpha.4</Version>
         <Authors>Irakli Gabisonia</Authors>
         <Description>.NET binding for the Zireael terminal rendering engine C ABI.</Description>
         <PackageTags>zireael;terminal;tui;interop;bindings</PackageTags>
