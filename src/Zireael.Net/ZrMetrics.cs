@@ -2,6 +2,9 @@ using System.Runtime.InteropServices;
 
 namespace Zireael.Net;
 
+/// <summary>
+/// Runtime metrics reported by the engine.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrMetrics
 {

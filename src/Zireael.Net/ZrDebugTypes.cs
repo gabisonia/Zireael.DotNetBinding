@@ -3,6 +3,9 @@ using Zireael.Net.Internal;
 
 namespace Zireael.Net;
 
+/// <summary>
+/// Header metadata for a debug record.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDebugRecordHeader
 {
@@ -15,6 +18,9 @@ public struct ZrDebugRecordHeader
     public uint PayloadSize;
 }
 
+/// <summary>
+/// Debug record containing per-frame draw and diff metrics.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDebugFrameRecord
 {
@@ -33,6 +39,9 @@ public struct ZrDebugFrameRecord
     public uint Pad0;
 }
 
+/// <summary>
+/// Debug record containing captured event parsing details.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDebugEventRecord
 {
@@ -45,6 +54,9 @@ public struct ZrDebugEventRecord
     public uint Pad0;
 }
 
+/// <summary>
+/// Debug record containing an engine error and contextual text.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public unsafe struct ZrDebugErrorRecord
 {
@@ -57,6 +69,10 @@ public unsafe struct ZrDebugErrorRecord
     public fixed byte SourceFile[ZrDebugConstants.SourceFileLength];
     public fixed byte Message[ZrDebugConstants.MessageLength];
 
+    /// <summary>
+    /// Decodes the source file path from the fixed UTF-8 buffer.
+    /// </summary>
+    /// <returns>The decoded source file path.</returns>
     public readonly string GetSourceFile()
     {
         fixed (byte* ptr = SourceFile)
@@ -65,6 +81,10 @@ public unsafe struct ZrDebugErrorRecord
         }
     }
 
+    /// <summary>
+    /// Decodes the debug message from the fixed UTF-8 buffer.
+    /// </summary>
+    /// <returns>The decoded debug message.</returns>
     public readonly string GetMessage()
     {
         fixed (byte* ptr = Message)
@@ -74,6 +94,9 @@ public unsafe struct ZrDebugErrorRecord
     }
 }
 
+/// <summary>
+/// Debug record containing drawlist validation and execution statistics.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDebugDrawlistRecord
 {
@@ -90,6 +113,9 @@ public struct ZrDebugDrawlistRecord
     public uint Pad1;
 }
 
+/// <summary>
+/// Debug record containing phase timing data.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDebugPerfRecord
 {
@@ -100,6 +126,9 @@ public struct ZrDebugPerfRecord
     public uint Pad0;
 }
 
+/// <summary>
+/// Configuration for engine debug capture.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDebugConfig
 {
@@ -113,6 +142,9 @@ public struct ZrDebugConfig
     public uint Pad1;
 }
 
+/// <summary>
+/// Query parameters for selecting debug records from the ring.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDebugQuery
 {
@@ -126,6 +158,9 @@ public struct ZrDebugQuery
     public uint Pad0;
 }
 
+/// <summary>
+/// Metadata returned from a debug-record query.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDebugQueryResult
 {
@@ -137,6 +172,9 @@ public struct ZrDebugQueryResult
     public uint Pad0;
 }
 
+/// <summary>
+/// Aggregate debug counters and ring utilization stats.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDebugStats
 {

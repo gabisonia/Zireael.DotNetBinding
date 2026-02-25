@@ -2,6 +2,9 @@ using System.Runtime.InteropServices;
 
 namespace Zireael.Net;
 
+/// <summary>
+/// Terminal size in character cells.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrPlatformSize
 {
@@ -9,6 +12,9 @@ public struct ZrPlatformSize
     public uint Rows;
 }
 
+/// <summary>
+/// Platform capabilities reported by the host terminal.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrPlatformCaps
 {
@@ -27,6 +33,9 @@ public struct ZrPlatformCaps
     public uint SgrAttrsSupported;
 }
 
+/// <summary>
+/// Platform configuration requested by the engine.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrPlatformConfig
 {
@@ -40,6 +49,9 @@ public struct ZrPlatformConfig
     public byte Pad2;
 }
 
+/// <summary>
+/// Resource and buffer limits used by the engine.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrLimits
 {
@@ -55,6 +67,9 @@ public struct ZrLimits
     public uint DiffMaxDamageRects;
 }
 
+/// <summary>
+/// Full configuration used to create an engine instance.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEngineConfig
 {
@@ -81,6 +96,9 @@ public struct ZrEngineConfig
     public ZrTerminalCapFlags CapSuppressFlags;
 }
 
+/// <summary>
+/// Runtime-adjustable configuration for an existing engine.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEngineRuntimeConfig
 {

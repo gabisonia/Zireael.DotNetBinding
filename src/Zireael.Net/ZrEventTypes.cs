@@ -2,6 +2,9 @@ using System.Runtime.InteropServices;
 
 namespace Zireael.Net;
 
+/// <summary>
+/// Header for an encoded event batch.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEvBatchHeader
 {
@@ -13,6 +16,9 @@ public struct ZrEvBatchHeader
     public uint Reserved0;
 }
 
+/// <summary>
+/// Common header for an encoded event record.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEvRecordHeader
 {
@@ -22,6 +28,9 @@ public struct ZrEvRecordHeader
     public uint Flags;
 }
 
+/// <summary>
+/// Keyboard event payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEvKey
 {
@@ -31,6 +40,9 @@ public struct ZrEvKey
     public uint Reserved0;
 }
 
+/// <summary>
+/// Text-input event payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEvText
 {
@@ -38,6 +50,9 @@ public struct ZrEvText
     public uint Reserved0;
 }
 
+/// <summary>
+/// Paste event payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEvPaste
 {
@@ -45,6 +60,9 @@ public struct ZrEvPaste
     public uint Reserved0;
 }
 
+/// <summary>
+/// Mouse event payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEvMouse
 {
@@ -58,6 +76,9 @@ public struct ZrEvMouse
     public uint Reserved0;
 }
 
+/// <summary>
+/// Terminal resize event payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEvResize
 {
@@ -67,6 +88,9 @@ public struct ZrEvResize
     public uint Reserved1;
 }
 
+/// <summary>
+/// Tick event payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEvTick
 {
@@ -76,6 +100,9 @@ public struct ZrEvTick
     public uint Reserved2;
 }
 
+/// <summary>
+/// User-defined event payload metadata.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrEvUser
 {

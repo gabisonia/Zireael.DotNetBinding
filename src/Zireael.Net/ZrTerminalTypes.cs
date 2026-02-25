@@ -3,6 +3,9 @@ using Zireael.Net.Internal;
 
 namespace Zireael.Net;
 
+/// <summary>
+/// Detected terminal profile information reported by the engine.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public unsafe struct ZrTerminalProfile
 {
@@ -41,6 +44,10 @@ public unsafe struct ZrTerminalProfile
     public byte Da2Responded;
     public byte Pad2;
 
+    /// <summary>
+    /// Decodes the terminal version string from the fixed UTF-8 buffer.
+    /// </summary>
+    /// <returns>The terminal version string.</returns>
     public readonly string GetVersionString()
     {
         fixed (byte* ptr = VersionString)
@@ -50,6 +57,9 @@ public unsafe struct ZrTerminalProfile
     }
 }
 
+/// <summary>
+/// Terminal capability flags and negotiated behavior switches.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrTerminalCaps
 {

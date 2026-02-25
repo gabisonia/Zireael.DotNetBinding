@@ -2,6 +2,9 @@ using System.Runtime.InteropServices;
 
 namespace Zireael.Net;
 
+/// <summary>
+/// Header for a serialized drawlist payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlHeader
 {
@@ -23,6 +26,9 @@ public struct ZrDlHeader
     public uint Reserved0;
 }
 
+/// <summary>
+/// Byte span descriptor for strings or blob segments in a drawlist.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlSpan
 {
@@ -30,6 +36,9 @@ public struct ZrDlSpan
     public uint Len;
 }
 
+/// <summary>
+/// Common header for a drawlist command.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdHeader
 {
@@ -38,6 +47,9 @@ public struct ZrDlCmdHeader
     public uint Size;
 }
 
+/// <summary>
+/// Base style information for text and fill commands.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlStyle
 {
@@ -47,6 +59,9 @@ public struct ZrDlStyle
     public uint Reserved0;
 }
 
+/// <summary>
+/// Extended style data introduced in drawlist v3.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlStyleV3Ext
 {
@@ -55,6 +70,9 @@ public struct ZrDlStyleV3Ext
     public uint LinkIdRef;
 }
 
+/// <summary>
+/// Composite style structure for drawlist v3 commands.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlStyleV3
 {
@@ -62,6 +80,9 @@ public struct ZrDlStyleV3
     public ZrDlStyleV3Ext Ext;
 }
 
+/// <summary>
+/// Fill-rectangle command payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdFillRect
 {
@@ -72,6 +93,9 @@ public struct ZrDlCmdFillRect
     public ZrDlStyle Style;
 }
 
+/// <summary>
+/// Draw-text command payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdDrawText
 {
@@ -84,6 +108,9 @@ public struct ZrDlCmdDrawText
     public uint Reserved0;
 }
 
+/// <summary>
+/// Fill-rectangle command payload for drawlist v3 style layout.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdFillRectV3
 {
@@ -94,6 +121,9 @@ public struct ZrDlCmdFillRectV3
     public ZrDlStyleV3 Style;
 }
 
+/// <summary>
+/// Draw-text command payload for drawlist v3 style layout.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdDrawTextV3
 {
@@ -106,6 +136,9 @@ public struct ZrDlCmdDrawTextV3
     public uint Reserved0;
 }
 
+/// <summary>
+/// Push-clip command payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdPushClip
 {
@@ -115,6 +148,9 @@ public struct ZrDlCmdPushClip
     public int H;
 }
 
+/// <summary>
+/// Draw-text-run command payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdDrawTextRun
 {
@@ -124,6 +160,9 @@ public struct ZrDlCmdDrawTextRun
     public uint Reserved0;
 }
 
+/// <summary>
+/// Segment descriptor for a v3 text-run blob.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlTextRunSegmentV3
 {
@@ -133,6 +172,9 @@ public struct ZrDlTextRunSegmentV3
     public uint ByteLen;
 }
 
+/// <summary>
+/// Set-cursor command payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdSetCursor
 {
@@ -144,6 +186,9 @@ public struct ZrDlCmdSetCursor
     public byte Reserved0;
 }
 
+/// <summary>
+/// Draw-canvas command payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdDrawCanvas
 {
@@ -160,6 +205,9 @@ public struct ZrDlCmdDrawCanvas
     public ushort Reserved;
 }
 
+/// <summary>
+/// Draw-image command payload.
+/// </summary>
 [StructLayout(LayoutKind.Sequential)]
 public struct ZrDlCmdDrawImage
 {

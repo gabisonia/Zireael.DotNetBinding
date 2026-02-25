@@ -2,12 +2,18 @@ using System;
 
 namespace Zireael.Net;
 
+/// <summary>
+/// Policy for rendering ambiguous-width glyphs such as emoji.
+/// </summary>
 public enum ZrWidthPolicy : uint
 {
     EmojiNarrow = 0,
     EmojiWide = 1
 }
 
+/// <summary>
+/// Terminal color capability mode.
+/// </summary>
 public enum ZrPlatformColorMode : byte
 {
     Unknown = 0,
@@ -16,6 +22,9 @@ public enum ZrPlatformColorMode : byte
     Rgb = 3
 }
 
+/// <summary>
+/// Known terminal identifiers.
+/// </summary>
 public enum ZrTerminalId : int
 {
     Unknown = 0,
@@ -36,6 +45,9 @@ public enum ZrTerminalId : int
     Count = 15
 }
 
+/// <summary>
+/// Terminal capability flags.
+/// </summary>
 [Flags]
 public enum ZrTerminalCapFlags : uint
 {
@@ -64,6 +76,9 @@ public enum ZrTerminalCapFlags : uint
               FocusEvents | Osc52 | SyncUpdate | ScrollRegion | CursorShape | OutputWaitWritable
 }
 
+/// <summary>
+/// Bit flags for keyboard modifiers.
+/// </summary>
 [Flags]
 public enum ZrModifiers : uint
 {
@@ -74,6 +89,9 @@ public enum ZrModifiers : uint
     Meta = 1u << 3
 }
 
+/// <summary>
+/// Event types emitted by the engine.
+/// </summary>
 public enum ZrEventType : uint
 {
     Invalid = 0,
@@ -86,6 +104,9 @@ public enum ZrEventType : uint
     User = 7
 }
 
+/// <summary>
+/// Logical key identifiers for keyboard events.
+/// </summary>
 public enum ZrKey : uint
 {
     Unknown = 0,
@@ -119,6 +140,9 @@ public enum ZrKey : uint
     F12 = 111
 }
 
+/// <summary>
+/// Key transition state.
+/// </summary>
 public enum ZrKeyAction : uint
 {
     Invalid = 0,
@@ -127,6 +151,9 @@ public enum ZrKeyAction : uint
     Repeat = 3
 }
 
+/// <summary>
+/// Mouse event kinds.
+/// </summary>
 public enum ZrMouseKind : uint
 {
     Invalid = 0,
@@ -137,6 +164,9 @@ public enum ZrMouseKind : uint
     Wheel = 5
 }
 
+/// <summary>
+/// Debug record categories.
+/// </summary>
 public enum ZrDebugCategory : uint
 {
     None = 0,
@@ -148,6 +178,9 @@ public enum ZrDebugCategory : uint
     Perf = 6
 }
 
+/// <summary>
+/// Debug record severity levels.
+/// </summary>
 public enum ZrDebugSeverity : uint
 {
     Trace = 0,
@@ -156,6 +189,9 @@ public enum ZrDebugSeverity : uint
     Error = 3
 }
 
+/// <summary>
+/// Drawlist command opcodes.
+/// </summary>
 public enum ZrDlOpcode : ushort
 {
     Invalid = 0,
@@ -170,6 +206,9 @@ public enum ZrDlOpcode : ushort
     DrawImage = 9
 }
 
+/// <summary>
+/// Canvas blitting strategy.
+/// </summary>
 public enum ZrBlitter : byte
 {
     Auto = 0,
@@ -181,6 +220,9 @@ public enum ZrBlitter : byte
     Ascii = 6
 }
 
+/// <summary>
+/// Cursor shape options for drawlist commands.
+/// </summary>
 public enum ZrDlCursorShape : byte
 {
     Block = 0,
@@ -188,12 +230,18 @@ public enum ZrDlCursorShape : byte
     Bar = 2
 }
 
+/// <summary>
+/// Supported image source formats for draw-image commands.
+/// </summary>
 public enum ZrDlDrawImageFormat : byte
 {
     Rgba = 0,
     Png = 1
 }
 
+/// <summary>
+/// Image rendering protocols for draw-image commands.
+/// </summary>
 public enum ZrDlDrawImageProtocol : byte
 {
     Auto = 0,
@@ -202,6 +250,9 @@ public enum ZrDlDrawImageProtocol : byte
     ITerm2 = 3
 }
 
+/// <summary>
+/// Z-layer for draw-image commands.
+/// </summary>
 public enum ZrDlDrawImageZLayer : sbyte
 {
     Back = -1,
@@ -209,6 +260,9 @@ public enum ZrDlDrawImageZLayer : sbyte
     Front = 1
 }
 
+/// <summary>
+/// Fit mode used when scaling images to destination bounds.
+/// </summary>
 public enum ZrDlDrawImageFitMode : byte
 {
     Fill = 0,
