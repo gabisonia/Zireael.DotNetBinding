@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Zireael.Net\Zireael.Net.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('..\..\native\lib\libzireael.dylib')">
+    <None Include="..\..\native\lib\libzireael.dylib" Link="libzireael.dylib" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('..\..\native\lib\libzireael.so')">
+    <None Include="..\..\native\lib\libzireael.so" Link="libzireael.so" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('..\..\native\lib\zireael.dll')">
+    <None Include="..\..\native\lib\zireael.dll" Link="zireael.dll" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>

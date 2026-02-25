@@ -1,0 +1,12 @@
+.DS_Store
+.idea/
+*.sln.DotSettings.user
+
+**/bin/
+**/obj/
+
+artifacts/
+native/build/
+native/lib/
+
+upstream-zireael/out/

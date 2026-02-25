@@ -1,0 +1,1 @@
+Console.WriteLine("Zireael .NET Binding Sample");

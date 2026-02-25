@@ -1,0 +1,131 @@
+name: Pack Multi-Platform NuGet
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  build-native:
+    name: Build Native (${{ matrix.rid }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            rid: linux-x64
+            expected_binary: native/runtimes/linux-x64/native/libzireael.so
+          - os: macos-13
+            rid: osx-x64
+            expected_binary: native/runtimes/osx-x64/native/libzireael.dylib
+          - os: macos-14
+            rid: osx-arm64
+            expected_binary: native/runtimes/osx-arm64/native/libzireael.dylib
+          - os: windows-latest
+            rid: win-x64
+            expected_binary: native/runtimes/win-x64/native/zireael.dll
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build native runtime binary
+        shell: bash
+        run: ./eng/build-native.sh
+
+      - name: Verify staged runtime asset
+        shell: bash
+        run: |
+          if [[ ! -f "${{ matrix.expected_binary }}" ]]; then
+            echo "Missing expected binary: ${{ matrix.expected_binary }}" >&2
+            find native -maxdepth 5 -type f || true
+            exit 1
+          fi
+
+      - name: Upload runtime asset
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.rid }}
+          path: native/runtimes/${{ matrix.rid }}
+          if-no-files-found: error
+
+  pack:
+    name: Pack NuGet
+    runs-on: ubuntu-latest
+    needs: build-native
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Download native linux-x64
+        uses: actions/download-artifact@v4
+        with:
+          name: native-linux-x64
+          path: native/runtimes/linux-x64
+
+      - name: Download native osx-x64
+        uses: actions/download-artifact@v4
+        with:
+          name: native-osx-x64
+          path: native/runtimes/osx-x64
+
+      - name: Download native osx-arm64
+        uses: actions/download-artifact@v4
+        with:
+          name: native-osx-arm64
+          path: native/runtimes/osx-arm64
+
+      - name: Download native win-x64
+        uses: actions/download-artifact@v4
+        with:
+          name: native-win-x64
+          path: native/runtimes/win-x64
+
+      - name: Normalize runtime layout
+        shell: bash
+        run: |
+          for rid in linux-x64 osx-x64 osx-arm64 win-x64; do
+            target="native/runtimes/${rid}/native"
+            mkdir -p "${target}"
+
+            while IFS= read -r file; do
+              cp "${file}" "${target}/$(basename "${file}")"
+            done < <(find "native/runtimes/${rid}" -type f \( -name '*.so' -o -name '*.dylib' -o -name '*.dll' \))
+          done
+
+      - name: Show runtime assets
+        run: find native/runtimes -type f | sort
+
+      - name: Pack
+        run: ./eng/pack.sh
+
+      - name: Upload package artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-packages
+          path: artifacts/*
+          if-no-files-found: error
+
+      - name: Publish to NuGet
+        if: startsWith(github.ref, 'refs/tags/') && secrets.NUGET_API_KEY != ''
+        run: |
+          dotnet nuget push artifacts/*.nupkg \
+            --api-key "${{ secrets.NUGET_API_KEY }}" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate
+
+          dotnet nuget push artifacts/*.snupkg \
+            --api-key "${{ secrets.NUGET_API_KEY }}" \
+            --source https://api.nuget.org/v3/index.json \
+            --skip-duplicate

@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <AssemblyName>Zireael.Net</AssemblyName>
+    <RootNamespace>Zireael.Net</RootNamespace>
+
+    <PackageId>Zireael.Net</PackageId>
+    <Version>0.1.0-alpha.1</Version>
+    <Authors>Irakli Gabisonia</Authors>
+    <Description>.NET binding for the Zireael terminal rendering engine C ABI.</Description>
+    <PackageTags>zireael;terminal;tui;interop;bindings</PackageTags>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/RtlZeroMemory/Zireael</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>Initial alpha release of the managed interop surface and engine wrapper.</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <IsPackable>true</IsPackable>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../native/runtimes/**/native/*.dll"
+          Pack="true"
+          PackagePath="runtimes/%(RecursiveDir)%(Filename)%(Extension)"
+          Visible="false" />
+    <None Include="../../native/runtimes/**/native/*.so"
+          Pack="true"
+          PackagePath="runtimes/%(RecursiveDir)%(Filename)%(Extension)"
+          Visible="false" />
+    <None Include="../../native/runtimes/**/native/*.dylib"
+          Pack="true"
+          PackagePath="runtimes/%(RecursiveDir)%(Filename)%(Extension)"
+          Visible="false" />
+  </ItemGroup>
+</Project>
