@@ -173,8 +173,14 @@ jobs:
             mkdir -p "${target}"
 
             while IFS= read -r file; do
-              cp "${file}" "${target}/$(basename "${file}")"
-            done < <(find "native/runtimes/${rid}" -type f \( -name '*.so' -o -name '*.dylib' -o -name '*.dll' \))
+              dest="${target}/$(basename "${file}")"
+              if [[ "${file}" == "${dest}" ]]; then
+                continue
+              fi
+              cp "${file}" "${dest}"
+            done < <(find "native/runtimes/${rid}" -type f \
+              \( -name '*.so' -o -name '*.dylib' -o -name '*.dll' \) \
+              ! -path "${target}/*")
           done
 
       - name: Show runtime assets
