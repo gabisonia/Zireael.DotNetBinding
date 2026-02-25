@@ -1,12 +1,33 @@
+# OS
 .DS_Store
+Thumbs.db
+
+# Editors / IDEs
 .idea/
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
 *.sln.DotSettings.user
 
+# .NET build outputs
 **/bin/
 **/obj/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
 
+# Packaging outputs
 artifacts/
+*.nupkg
+*.snupkg
+
+# Native build outputs
 native/build/
 native/lib/
+native/runtimes/
 
+# Upstream native repo outputs
 upstream-zireael/out/
