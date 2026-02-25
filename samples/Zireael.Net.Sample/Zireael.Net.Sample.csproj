@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <PackageReference Include="Zireael.Net" Version="0.1.0-alpha.5"/>
+        <PackageReference Include="Zireael.Net" Version="0.1.0-alpha.4"/>
     </ItemGroup>
 
     <PropertyGroup>

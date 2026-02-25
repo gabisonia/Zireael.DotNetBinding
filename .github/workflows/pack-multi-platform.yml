@@ -54,7 +54,13 @@ jobs:
 
       - name: Install toolchain (macOS)
         if: runner.os == 'macOS'
-        run: brew install ninja
+        shell: bash
+        run: |
+          if command -v ninja >/dev/null 2>&1; then
+            echo "ninja already available: $(ninja --version)"
+          else
+            brew install ninja
+          fi
 
       - name: Install toolchain (Windows)
         if: runner.os == 'Windows'
@@ -67,7 +73,7 @@ jobs:
       - name: Fetch upstream Zireael source
         shell: bash
         env:
-          ZIREAEL_UPSTREAM_REF: v1.3.8
+          ZIREAEL_UPSTREAM_REF: v1.3.9
         run: |
           UPSTREAM_DIR="$(pwd)/upstream-zireael-src"
           rm -rf "${UPSTREAM_DIR}"

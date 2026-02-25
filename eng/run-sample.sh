@@ -8,27 +8,23 @@ OS_NAME="$(uname -s)"
 
 if [[ "${OS_NAME}" == "Darwin" ]]; then
   LIB_FILE="${ROOT_DIR}/native/lib/libzireael.dylib"
-  if [[ ! -f "${LIB_FILE}" ]]; then
-    echo "Missing native library: ${LIB_FILE}" >&2
-    echo "Run ./scripts/build-native.sh first (requires cmake)." >&2
-    exit 1
-  fi
-
-  DYLD_LIBRARY_PATH="${ROOT_DIR}/native/lib:${DYLD_LIBRARY_PATH:-}" \
+  if [[ -f "${LIB_FILE}" ]]; then
+    DYLD_LIBRARY_PATH="${ROOT_DIR}/native/lib:${DYLD_LIBRARY_PATH:-}" \
+      dotnet run --project "${PROJECT}" "$@"
+  else
     dotnet run --project "${PROJECT}" "$@"
+  fi
   exit 0
 fi
 
 if [[ "${OS_NAME}" == "Linux" ]]; then
   LIB_FILE="${ROOT_DIR}/native/lib/libzireael.so"
-  if [[ ! -f "${LIB_FILE}" ]]; then
-    echo "Missing native library: ${LIB_FILE}" >&2
-    echo "Run ./scripts/build-native.sh first (requires cmake)." >&2
-    exit 1
-  fi
-
-  LD_LIBRARY_PATH="${ROOT_DIR}/native/lib:${LD_LIBRARY_PATH:-}" \
+  if [[ -f "${LIB_FILE}" ]]; then
+    LD_LIBRARY_PATH="${ROOT_DIR}/native/lib:${LD_LIBRARY_PATH:-}" \
+      dotnet run --project "${PROJECT}" "$@"
+  else
     dotnet run --project "${PROJECT}" "$@"
+  fi
   exit 0
 fi
 
