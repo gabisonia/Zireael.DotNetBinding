@@ -79,6 +79,26 @@ jobs:
             sed -n '1,40p' "${ZIREAEL_UPSTREAM_DIR}/src/util/zr_assert.c" >&2
             exit 1
           fi
+
+          perl -0pi -e 's/static\s+_Atomic\(zr_posix_sa_handler_fn\)\s+g_posix_prev_sa_handler\s*=\s*[^;]*;/static _Atomic(zr_posix_sa_handler_fn) g_posix_prev_sa_handler = ATOMIC_VAR_INIT((zr_posix_sa_handler_fn)0);/g' \
+            "${ZIREAEL_UPSTREAM_DIR}/src/platform/posix/zr_plat_posix.c"
+          perl -0pi -e 's/static\s+_Atomic\(zr_posix_sa_sigaction_fn\)\s+g_posix_prev_sa_sigaction\s*=\s*[^;]*;/static _Atomic(zr_posix_sa_sigaction_fn) g_posix_prev_sa_sigaction = ATOMIC_VAR_INIT((zr_posix_sa_sigaction_fn)0);/g' \
+            "${ZIREAEL_UPSTREAM_DIR}/src/platform/posix/zr_plat_posix.c"
+          perl -0pi -e 's/atomic_store_explicit\(&g_posix_prev_sa_handler,\s*NULL,\s*memory_order_relaxed\);/atomic_store_explicit\(&g_posix_prev_sa_handler, \(zr_posix_sa_handler_fn\)0, memory_order_relaxed\);/g' \
+            "${ZIREAEL_UPSTREAM_DIR}/src/platform/posix/zr_plat_posix.c"
+          perl -0pi -e 's/atomic_store_explicit\(&g_posix_prev_sa_sigaction,\s*NULL,\s*memory_order_relaxed\);/atomic_store_explicit\(&g_posix_prev_sa_sigaction, \(zr_posix_sa_sigaction_fn\)0, memory_order_relaxed\);/g' \
+            "${ZIREAEL_UPSTREAM_DIR}/src/platform/posix/zr_plat_posix.c"
+
+          if ! grep -q 'g_posix_prev_sa_handler = ATOMIC_VAR_INIT((zr_posix_sa_handler_fn)0);' "${ZIREAEL_UPSTREAM_DIR}/src/platform/posix/zr_plat_posix.c"; then
+            echo "Failed to patch zr_plat_posix.c handler init for clang compatibility." >&2
+            sed -n '100,140p' "${ZIREAEL_UPSTREAM_DIR}/src/platform/posix/zr_plat_posix.c" >&2
+            exit 1
+          fi
+          if ! grep -q 'g_posix_prev_sa_sigaction = ATOMIC_VAR_INIT((zr_posix_sa_sigaction_fn)0);' "${ZIREAEL_UPSTREAM_DIR}/src/platform/posix/zr_plat_posix.c"; then
+            echo "Failed to patch zr_plat_posix.c sigaction init for clang compatibility." >&2
+            sed -n '100,140p' "${ZIREAEL_UPSTREAM_DIR}/src/platform/posix/zr_plat_posix.c" >&2
+            exit 1
+          fi
           if [[ "${RUNNER_OS}" == "Windows" ]]; then
             perl -0pi -e 's/#endif \/\* ZR_UTIL_ZR_MACROS_H_INCLUDED \*\//\n#if defined(_MSC_VER) \&\& !defined(__clang__)\n#undef ZR_ARRAYLEN\n#define ZR_ARRAYLEN(arr) (sizeof(arr) \/ sizeof((arr)[0]))\n#endif\n\n#endif \/\* ZR_UTIL_ZR_MACROS_H_INCLUDED \*\//s' \
               "${ZIREAEL_UPSTREAM_DIR}/src/util/zr_macros.h"
