@@ -34,7 +34,7 @@ try
             engine.Present();
 
             renderedFrames++;
-            System.Threading.Thread.Sleep(50);
+            Thread.Sleep(50);
         }
 
         metrics = engine.GetMetrics();
