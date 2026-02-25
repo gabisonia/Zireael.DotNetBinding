@@ -39,7 +39,18 @@ Artifacts:
 
 Workflow: `.github/workflows/pack-multi-platform.yml`
 
-It builds native binaries on Linux/macOS/Windows, stages runtime assets, and packs one multi-platform NuGet package.
+What it does:
+
+1. Builds native binaries for:
+   - `linux-x64`
+   - `osx-x64`
+   - `osx-arm64`
+   - `win-x64`
+2. Stages runtime assets under `native/runtimes/<rid>/native/`
+3. Packs one multi-platform NuGet package
+4. On `v*` tags, publishes packages automatically
+
+Manual run: trigger with `workflow_dispatch`.
 
 ## Docs
 
