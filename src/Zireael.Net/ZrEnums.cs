@@ -179,6 +179,72 @@ public enum ZrDebugCategory : uint
 }
 
 /// <summary>
+/// Bitmask for selecting debug categories in query/config APIs.
+/// </summary>
+[Flags]
+public enum ZrDebugCategoryMask : uint
+{
+    None = 0,
+    Frame = 1u << (int)ZrDebugCategory.Frame,
+    Event = 1u << (int)ZrDebugCategory.Event,
+    Drawlist = 1u << (int)ZrDebugCategory.Drawlist,
+    Error = 1u << (int)ZrDebugCategory.Error,
+    State = 1u << (int)ZrDebugCategory.State,
+    Perf = 1u << (int)ZrDebugCategory.Perf,
+
+    AllKnown = Frame | Event | Drawlist | Error | State | Perf,
+    All = 0xFFFF_FFFFu
+}
+
+/// <summary>
+/// Conversion helpers between category ordinals and category masks.
+/// </summary>
+public static class ZrDebugCategoryMaskHelpers
+{
+    /// <summary>
+    /// Converts a debug category ordinal into its corresponding mask bit.
+    /// </summary>
+    /// <param name="category">Category ordinal from debug record headers.</param>
+    /// <returns>A single-bit category mask, or <see cref="ZrDebugCategoryMask.None" /> for invalid/none.</returns>
+    public static ZrDebugCategoryMask ForCategory(ZrDebugCategory category)
+    {
+        var value = (uint)category;
+        if (value == 0u || value > 31u)
+        {
+            return ZrDebugCategoryMask.None;
+        }
+
+        return (ZrDebugCategoryMask)(1u << (int)value);
+    }
+
+    /// <summary>
+    /// Returns whether a mask includes the supplied category ordinal.
+    /// </summary>
+    /// <param name="mask">Category bitmask.</param>
+    /// <param name="category">Category ordinal to check.</param>
+    /// <returns><see langword="true" /> when the mask contains the category bit.</returns>
+    public static bool Includes(this ZrDebugCategoryMask mask, ZrDebugCategory category)
+    {
+        var bit = ForCategory(category);
+        return bit != ZrDebugCategoryMask.None && (mask & bit) != 0;
+    }
+
+    /// <summary>
+    /// Converts a raw native mask into a typed managed mask.
+    /// </summary>
+    /// <param name="rawMask">Raw uint mask from native APIs.</param>
+    /// <returns>Typed mask value.</returns>
+    public static ZrDebugCategoryMask FromRaw(uint rawMask) => (ZrDebugCategoryMask)rawMask;
+
+    /// <summary>
+    /// Converts a typed mask into its raw native uint representation.
+    /// </summary>
+    /// <param name="mask">Typed managed mask.</param>
+    /// <returns>Raw uint mask for native APIs.</returns>
+    public static uint ToRaw(this ZrDebugCategoryMask mask) => (uint)mask;
+}
+
+/// <summary>
 /// Debug record severity levels.
 /// </summary>
 public enum ZrDebugSeverity : uint

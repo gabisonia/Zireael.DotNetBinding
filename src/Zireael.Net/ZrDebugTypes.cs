@@ -135,7 +135,7 @@ public struct ZrDebugConfig
     public uint Enabled;
     public uint RingCapacity;
     public uint MinSeverity;
-    public uint CategoryMask;
+    public ZrDebugCategoryMask CategoryMask;
     public uint CaptureRawEvents;
     public uint CaptureDrawlistBytes;
     public uint Pad0;
@@ -152,7 +152,7 @@ public struct ZrDebugQuery
     public ulong MaxRecordId;
     public ulong MinFrameId;
     public ulong MaxFrameId;
-    public uint CategoryMask;
+    public ZrDebugCategoryMask CategoryMask;
     public uint MinSeverity;
     public uint MaxRecords;
     public uint Pad0;
