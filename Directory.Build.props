@@ -15,6 +15,6 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageOutputPath>$(MSBuildThisFileDirectory)artifacts</PackageOutputPath>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/RtlZeroMemory/Zireael</RepositoryUrl>
+    <RepositoryUrl>https://github.com/gabisonia/Zireael.DotNetBinding</RepositoryUrl>
   </PropertyGroup>
 </Project>

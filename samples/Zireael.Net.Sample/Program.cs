@@ -52,7 +52,8 @@ try
 catch (DllNotFoundException ex)
 {
     Console.Error.WriteLine("Could not load the native Zireael runtime on this machine.");
-    Console.Error.WriteLine("If using local source native binaries, run ./eng/build-native.sh then ./eng/run-sample.sh.");
+    Console.Error.WriteLine(
+        "If using local source native binaries, run ./eng/build-native.sh then ./eng/run-sample.sh.");
     Console.Error.WriteLine("If using NuGet package mode, ensure the package includes your platform runtime asset.");
     Console.Error.WriteLine(ex.Message);
     return 3;

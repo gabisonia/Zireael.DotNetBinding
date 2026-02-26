@@ -12,7 +12,7 @@
         <Description>.NET binding for the Zireael terminal rendering engine C ABI.</Description>
         <PackageTags>zireael;terminal;tui;interop;bindings</PackageTags>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/RtlZeroMemory/Zireael</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/gabisonia/Zireael.DotNetBinding</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>Sync upstream submodule to Zireael v1.3.9 (SGR mouse wheel delta sign fix).</PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
