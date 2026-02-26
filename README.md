@@ -28,6 +28,28 @@ Native outputs:
 - local run: `native/lib/`
 - NuGet runtime assets: `native/runtimes/<rid>/native/`
 
+## Run Sample
+
+Preferred one-command path:
+
+```bash
+make sample
+```
+
+Equivalent script form:
+
+```bash
+./eng/sample.sh
+```
+
+The command/script validates prerequisites, builds native `zireael`, and runs the sample.
+
+Run sample only (expects native library already staged):
+
+```bash
+make run-sample
+```
+
 ## Pack NuGet
 
 ```bash

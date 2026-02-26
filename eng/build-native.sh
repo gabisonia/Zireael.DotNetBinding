@@ -13,7 +13,11 @@ fi
 
 if ! command -v cmake >/dev/null 2>&1; then
   echo "cmake is required but was not found in PATH." >&2
-  echo "Install it (macOS: brew install cmake), then rerun this script." >&2
+  echo "Install CMake, then rerun." >&2
+  echo "  macOS:   brew install cmake" >&2
+  echo "  Ubuntu:  sudo apt-get update && sudo apt-get install -y cmake" >&2
+  echo "  Windows: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' -y" >&2
+  echo "After install you can run: make sample" >&2
   exit 1
 fi
 

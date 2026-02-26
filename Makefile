@@ -5,7 +5,7 @@ UPSTREAM_SUBMODULE := upstream-zireael
 
 .DEFAULT_GOAL := help
 
-.PHONY: help sync-upstream print-upstream-sha build-native build test update update-test
+.PHONY: help sync-upstream print-upstream-sha build-native build test run-sample sample update update-test
 
 help:
 	@echo "Targets:"
@@ -14,6 +14,8 @@ help:
 	@echo "  make build-native     # build and stage native zireael library"
 	@echo "  make build            # build .NET solution"
 	@echo "  make test             # run .NET tests"
+	@echo "  make run-sample       # run sample with native library path setup"
+	@echo "  make sample           # one-command setup: build native + run sample"
 	@echo "  make update           # sync upstream + build native + build managed"
 	@echo "  make update-test      # update + run tests"
 
@@ -34,6 +36,12 @@ build:
 
 test:
 	dotnet test $(SLN) --nologo
+
+run-sample:
+	./eng/run-sample.sh
+
+sample:
+	./eng/sample.sh
 
 update: sync-upstream build-native build
 
