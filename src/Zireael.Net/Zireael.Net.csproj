@@ -7,14 +7,14 @@
         <RootNamespace>Zireael.Net</RootNamespace>
 
         <PackageId>Zireael.Net</PackageId>
-        <Version>0.1.0-alpha.5</Version>
+        <Version>0.1.0-alpha.6</Version>
         <Authors>Irakli Gabisonia</Authors>
         <Description>.NET binding for the Zireael terminal rendering engine C ABI.</Description>
         <PackageTags>zireael;terminal;tui;interop;bindings</PackageTags>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/gabisonia/Zireael.DotNetBinding</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageReleaseNotes>Sync upstream submodule to Zireael v1.3.9 (SGR mouse wheel delta sign fix).</PackageReleaseNotes>
+        <PackageReleaseNotes>Add ergonomic APIs: ZrDrawlistBuilder and ZrEventBatchReader. Improve sample run workflow with one-command setup.</PackageReleaseNotes>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <IsPackable>true</IsPackable>
         <NoWarn>$(NoWarn);1591</NoWarn>

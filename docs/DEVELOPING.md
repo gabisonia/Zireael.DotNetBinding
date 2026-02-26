@@ -19,6 +19,20 @@ dotnet build Zireael.DotNetBinding.slnx
 
 ## Run sample
 
+Preferred one-command path:
+
+```bash
+make sample
+```
+
+Equivalent script:
+
+```bash
+./eng/sample.sh
+```
+
+Run-only path (expects native library already staged):
+
 ```bash
 ./eng/run-sample.sh
 ```
